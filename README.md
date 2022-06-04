@@ -19,7 +19,7 @@ So, call it by async!
 #### Run server
 
 ```bash
-$ go build app.go
+$ go run app.go
 ```
 
 #### Async call to Kotlin Server
