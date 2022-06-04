@@ -8,7 +8,7 @@ Go server uses [Gin](https://gin-gonic.com) and Kotlin server uses [Spring Boot]
 
 ## Concept
 
-Some process takes 5 second to finish, and each server need to call the service 10 times.
+Some API takes 5 second to process, and each server need to call the API for 10 times.
 
 So, call it by async!
 
