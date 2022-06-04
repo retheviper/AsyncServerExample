@@ -6,6 +6,12 @@ Tested with Go 16.15 & Java 11.
 
 Go server uses [Gin](https://gin-gonic.com) and Kotlin server uses [Spring Boot](https://spring.io/projects/spring-boot).
 
+## Concept
+
+Some process takes 5 second to finish, and each server need to call the service 10 times.
+
+So, call it by async!
+
 ## Run
 
 ### Go
