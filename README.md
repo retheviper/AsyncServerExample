@@ -2,7 +2,7 @@
 
 Async API call example by [goroutine](https://go.dev/tour/concurrency) and [coroutine](https://kotlinlang.org/docs/coroutines-overview.html).
 
-Tested with Go 16.15 & Java 11.
+Tested with Go 1.16.15 & Java 11.
 
 Go server uses [Gin](https://gin-gonic.com) and Kotlin server uses [Spring Boot](https://spring.io/projects/spring-boot).
 
