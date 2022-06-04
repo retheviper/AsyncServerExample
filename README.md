@@ -12,34 +12,32 @@ Go server uses [Gin](https://gin-gonic.com) and Kotlin server uses [Spring Boot]
 
 #### Run server
 
-```shell
+```bash
 $ go build app.go
 ```
 
 #### Async call to Kotlin Server
 
-```
+```bash
 # with no cap
 $ curl http://localhost:8800/api/v1/call-kotlin-server-async
 
 # with cap(2)
 $ curl http://localhost:8800/api/v1/call-kotlin-server-async-dual
-
 ```
 
 ### Kotlin Server
 
-```shell
+```bash
 $ ./gradlew bootRun
 ```
 
 #### Async call to Kotlin Server
 
-```
+```bash
 # with no cap
 $ curl http://localhost:8900/api/v1/call-go-server-async
 
 # with cap(2)
 $ curl http://localhost:8900/api/v1/call-go-server-async-dual
-
 ```
