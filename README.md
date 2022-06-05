@@ -12,14 +12,20 @@ Some API takes 5 second to process, and each server need to call the API for 10 
 
 So, call it by async!
 
-## Run
+## Test
 
 ### Go
 
-#### Run server
+#### Run Server
 
 ```bash
 $ go run app.go
+```
+
+#### Non-async call to Kotlin Server
+
+```bash
+$ curl http://localhost:8800/api/v1/call-kotlin-server
 ```
 
 #### Async call to Kotlin Server
@@ -34,11 +40,19 @@ $ curl http://localhost:8800/api/v1/call-kotlin-server-async-dual
 
 ### Kotlin Server
 
+#### Run Server
+
 ```bash
 $ ./gradlew bootRun
 ```
 
-#### Async call to Kotlin Server
+#### Non-async call to Go Server
+
+```bash
+$ curl http://localhost:8900/api/v1/call-go-server
+```
+
+#### Async call to Go Server
 
 ```bash
 # with no cap
