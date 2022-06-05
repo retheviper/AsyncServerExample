@@ -24,36 +24,40 @@ class CallGoServerService(
             logger.info("[CallGoServer] before request with id: $it")
             runBlocking {
                 goServerClient.call(it) ?: CallGoServerDto(it, "failed")
+            }.also { result ->
+                logger.info("[CallGoServer] after request with id: ${result.id}")
             }
+        }.also {
+            logger.info("[CallGoServer] done")
         }
     }
 
     suspend fun callGoServerAsync(): List<CallGoServerDto> {
-        logger.info("[callGoServerAsync] start")
+        logger.info("[CallGoServerAsync] start")
         return coroutineScope {
             tries.map {
                 async {
-                    logger.info("[callGoServerAsync] before request with id: $it")
+                    logger.info("[CallGoServerAsync] before request with id: $it")
                     goServerClient.call(it) ?: CallGoServerDto(it, "failed")
                 }
             }.awaitAll()
                 .also {
                     it.forEach { result ->
-                        logger.info("[callGoServerAsyncDual] after request with id: ${result.id}")
+                        logger.info("[CallGoServerAsyncDual] after request with id: ${result.id}")
                     }
-                    logger.info("[callGoServerAsyncDual] done")
+                    logger.info("[CallGoServerAsyncDual] done")
                 }
         }
     }
 
     suspend fun callGoServerAsyncDual(): List<CallGoServerDto> {
-        logger.info("[callGoServerAsyncDual] start")
+        logger.info("[CallGoServerAsyncDual] start")
         val semaphore = Semaphore(2)
         return coroutineScope {
             tries.map {
                 async {
                     semaphore.withPermit {
-                        logger.info("[callGoServerAsyncDual] before request with id: $it")
+                        logger.info("[CallGoServerAsyncDual] before request with id: $it")
                         goServerClient.call(it) ?: CallGoServerDto(it, "failed")
                     }
                 }
@@ -61,9 +65,9 @@ class CallGoServerService(
         }.awaitAll()
             .also {
                 it.forEach { result ->
-                    logger.info("[callGoServerAsyncDual] after request with id: ${result.id}")
+                    logger.info("[CallGoServerAsyncDual] after request with id: ${result.id}")
                 }
-                logger.info("[callGoServerAsyncDual] done")
+                logger.info("[CallGoServerAsyncDual] done")
             }
     }
 }
