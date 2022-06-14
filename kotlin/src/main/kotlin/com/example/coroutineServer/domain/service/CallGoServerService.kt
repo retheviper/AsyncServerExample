@@ -3,7 +3,6 @@ package com.example.coroutineServer.domain.service
 import com.example.coroutineServer.domain.model.CallGoServerDto
 import com.example.coroutineServer.infrastructure.client.GoServerClient
 import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Semaphore
@@ -40,13 +39,13 @@ class CallGoServerService(
                     logger.info("[CallGoServerAsync] before request with id: $it")
                     goServerClient.call(it) ?: CallGoServerDto(it, "failed")
                 }
-            }.awaitAll()
-                .also {
-                    it.forEach { result ->
-                        logger.info("[CallGoServerAsyncDual] after request with id: ${result.id}")
-                    }
-                    logger.info("[CallGoServerAsyncDual] done")
+            }.map {
+                it.await().also { result ->
+                    logger.info("[CallGoServerAsyncDual] after request with id: ${result.id}")
                 }
+            }.also {
+                logger.info("[CallGoServerAsyncDual] done")
+            }
         }
     }
 
@@ -62,12 +61,12 @@ class CallGoServerService(
                     }
                 }
             }
-        }.awaitAll()
-            .also {
-                it.forEach { result ->
-                    logger.info("[CallGoServerAsyncDual] after request with id: ${result.id}")
-                }
-                logger.info("[CallGoServerAsyncDual] done")
+        }.map {
+            it.await().also { result ->
+                logger.info("[CallGoServerAsyncDual] after request with id: ${result.id}")
             }
+        }.also {
+            logger.info("[CallGoServerAsyncDual] done")
+        }
     }
 }
